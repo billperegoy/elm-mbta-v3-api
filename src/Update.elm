@@ -28,7 +28,7 @@ update msg model =
 
 url : String
 url =
-    "https://api-v3.mbta.com/predictions?filter[stop]=place-sstat&sort=departure_time&include=route"
+    "https://api-v3.mbta.com/predictions?filter[stop]=place-sstat&sort=departure_time&include=route,stop"
 
 
 get : Cmd Msg
@@ -40,7 +40,7 @@ decoder : Decoder Prediction
 decoder =
     decode Prediction
         |> required "data" predictionElementListDecoder
-        |> required "included" resourceIncludeListDecoder
+        |> required "included" routeIncludeListDecoder
 
 
 predictionElementListDecoder : Decoder (List PredictionElement)
@@ -67,17 +67,35 @@ predictionAttributesDecoder =
         |> required "arrival_time" (nullable string)
 
 
-resourceIncludeListDecoder : Decoder (List ResourceInclude)
-resourceIncludeListDecoder =
-    list resourceIncludeDecoder
+routeIncludeListDecoder : Decoder (List RouteInclude)
+routeIncludeListDecoder =
+    list routeIncludeDecoder
 
 
-resourceIncludeDecoder : Decoder ResourceInclude
-resourceIncludeDecoder =
-    decode ResourceInclude
+routeIncludeDecoder : Decoder RouteInclude
+routeIncludeDecoder =
+    decode RouteInclude
         |> required "type" string
         |> required "id" string
         |> required "attributes" routeAttributesDecoder
+
+
+
+-- Thie line above needs to be a one-of to choose between the
+-- different include types
+
+
+stopIncludeListDecoder : Decoder (List StopInclude)
+stopIncludeListDecoder =
+    list stopIncludeDecoder
+
+
+stopIncludeDecoder : Decoder StopInclude
+stopIncludeDecoder =
+    decode StopInclude
+        |> required "type" string
+        |> required "id" string
+        |> required "attributes" stopAttributesDecoder
 
 
 routeAttributesListDecoder : Decoder (List RouteAttributes)
@@ -94,3 +112,12 @@ routeAttributesDecoder =
         |> required "long_name" string
         |> required "direction_names" (list string)
         |> required "description" string
+
+
+stopAttributesDecoder : Decoder StopAttributes
+stopAttributesDecoder =
+    decode StopAttributes
+        |> required "wheelchair_boarding" string
+        |> required "name" string
+        |> required "longitude" string
+        |> required "latitude" string

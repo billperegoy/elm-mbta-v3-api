@@ -6,7 +6,7 @@ import Http
 
 type alias Prediction =
     { data : List PredictionElement
-    , included : List ResourceInclude
+    , included : List RouteInclude
     }
 
 
@@ -37,10 +37,25 @@ type alias RouteAttributes =
     }
 
 
-type alias ResourceInclude =
+type alias StopAttributes =
+    { wheelchairBoarding : String
+    , name : String
+    , longitude : String
+    , latitude : String
+    }
+
+
+type alias RouteInclude =
     { resourceType : String
     , id : String
     , attributes : RouteAttributes
+    }
+
+
+type alias StopInclude =
+    { resourceType : String
+    , id : String
+    , attributes : StopAttributes
     }
 
 
