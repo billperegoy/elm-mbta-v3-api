@@ -10,6 +10,11 @@ type alias Prediction =
     }
 
 
+type ResourceInclude
+    = RouteResource RouteInclude
+    | StopResource StopInclude
+
+
 type alias PredictionElement =
     { id : String
     , attributes : PredictionAttributes

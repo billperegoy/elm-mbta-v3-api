@@ -28,7 +28,11 @@ update msg model =
 
 url : String
 url =
-    "https://api-v3.mbta.com/predictions?filter[stop]=place-sstat&sort=departure_time&include=route,stop"
+    "https://api-v3.mbta.com/predictions?filter[stop]=place-sstat&sort=departure_time&include=route"
+
+
+
+-- Add stop to include list to break things
 
 
 get : Cmd Msg
