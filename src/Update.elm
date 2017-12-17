@@ -56,6 +56,7 @@ predictionElementDecoder : Decoder PredictionElement
 predictionElementDecoder =
     decode PredictionElement
         |> required "id" string
+        |> required "relationships" relationshipsDecoder
         |> required "attributes" predictionAttributesDecoder
 
 
@@ -125,3 +126,24 @@ stopAttributesDecoder =
         |> required "name" string
         |> required "longitude" string
         |> required "latitude" string
+
+
+relationshipDataDecoder : Decoder RelationshipData
+relationshipDataDecoder =
+    decode RelationshipData
+        |> required "type" string
+        |> required "id" string
+
+
+relationshipElementDecoder : Decoder RelationshipElement
+relationshipElementDecoder =
+    decode RelationshipElement
+        |> required "data" relationshipDataDecoder
+
+
+relationshipsDecoder : Decoder Relationships
+relationshipsDecoder =
+    decode Relationships
+        |> required "trip" relationshipElementDecoder
+        |> required "stop" relationshipElementDecoder
+        |> required "route" relationshipElementDecoder

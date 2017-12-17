@@ -1,20 +1,43 @@
 module View exposing (view)
 
 import Html exposing (..)
+import Html.Attributes exposing (..)
 import Model exposing (..)
 
 
 view : Model -> Html Msg
 view model =
-    div []
+    div [ class "container" ]
         [ h1 [] [ text model.error ]
-        , ul [] (List.map displayPrediction model.predictions.data)
+        , h1 [] [ text "Departures" ]
+        , table [ class "table" ]
+            [ tbody []
+                (commuterRail 0 model.predictions.data)
+            ]
+        , h1 [] [ text "Arrivals" ]
+        , table [ class "table" ]
+            [ tbody []
+                (commuterRail 1 model.predictions.data)
+            ]
         ]
+
+
+commuterRail : Int -> List PredictionElement -> List (Html Msg)
+commuterRail direction data =
+    List.filter (\e -> String.startsWith "CR-" e.relationships.route.data.id)
+        data
+        |> List.filter (\e -> e.attributes.directionId == direction)
+        |> List.map displayPrediction
 
 
 displayPrediction : PredictionElement -> Html Msg
 displayPrediction prediction =
-    li [] [ text prediction.id ]
+    tr []
+        [ td [] [ text prediction.id ]
+        , td [] [ text prediction.relationships.route.data.id ]
+        , td [] [ text (Maybe.withDefault "-" prediction.attributes.status) ]
+        , td [] [ text (Maybe.withDefault "-" prediction.attributes.track) ]
+        ]
 
 
 findRoute : Prediction -> String

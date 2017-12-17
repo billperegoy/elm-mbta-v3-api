@@ -17,7 +17,26 @@ type ResourceInclude
 
 type alias PredictionElement =
     { id : String
+    , relationships : Relationships
     , attributes : PredictionAttributes
+    }
+
+
+type alias RelationshipData =
+    { relationshipType : String
+    , id : String
+    }
+
+
+type alias RelationshipElement =
+    { data : RelationshipData
+    }
+
+
+type alias Relationships =
+    { trip : RelationshipElement
+    , stop : RelationshipElement
+    , route : RelationshipElement
     }
 
 
