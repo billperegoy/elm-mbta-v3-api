@@ -5,7 +5,8 @@ import Http
 
 
 type alias Prediction =
-    { data : List PredictionElement
+    { jsonApi : JsonApi
+    , data : List PredictionElement
     , included : List RouteInclude
     }
 
@@ -81,6 +82,10 @@ type alias StopInclude =
     , id : String
     , attributes : StopAttributes
     }
+
+
+type alias JsonApi =
+    { version : String }
 
 
 type alias Model =

@@ -4,6 +4,7 @@ import Model exposing (..)
 import Http
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
+import Date exposing (Date)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -43,6 +44,7 @@ get =
 decoder : Decoder Prediction
 decoder =
     decode Prediction
+        |> required "jsonapi" jsonApiDecoder
         |> required "data" predictionElementListDecoder
         |> required "included" routeIncludeListDecoder
 
@@ -147,3 +149,9 @@ relationshipsDecoder =
         |> required "trip" relationshipElementDecoder
         |> required "stop" relationshipElementDecoder
         |> required "route" relationshipElementDecoder
+
+
+jsonApiDecoder : Decoder JsonApi
+jsonApiDecoder =
+    decode JsonApi
+        |> required "version" string

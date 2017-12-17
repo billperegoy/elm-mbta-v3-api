@@ -8,7 +8,8 @@ init : ( Model, Cmd Msg )
 init =
     { error = ""
     , predictions =
-        { data = []
+        { jsonApi = { version = "-" }
+        , data = []
         , included = []
         }
     }

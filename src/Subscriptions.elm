@@ -1,15 +1,9 @@
 module Subscriptions exposing (subscriptions)
 
 import Model exposing (..)
-
-
---import Time
+import Time
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
-
-
-
---Time.every (Time.second * 10) GetPredictions
+    Time.every (Time.second * 20) GetPredictions
