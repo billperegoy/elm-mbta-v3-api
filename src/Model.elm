@@ -2,6 +2,7 @@ module Model exposing (..)
 
 import Time
 import Http
+import Date
 
 
 type alias Prediction =
@@ -47,8 +48,8 @@ type alias PredictionAttributes =
     , status : Maybe String
     , scheduleRelationShip : Maybe String
     , directionId : Int
-    , departureTime : Maybe String
-    , arrivalTime : Maybe String
+    , departureTime : Maybe Date.Date
+    , arrivalTime : Maybe Date.Date
     }
 
 

@@ -70,8 +70,8 @@ predictionAttributesDecoder =
         |> required "status" (nullable string)
         |> required "schedule_relationship" (nullable string)
         |> required "direction_id" int
-        |> required "departure_time" (nullable string)
-        |> required "arrival_time" (nullable string)
+        |> required "departure_time" (nullable dateDecoder)
+        |> required "arrival_time" (nullable dateDecoder)
 
 
 routeIncludeListDecoder : Decoder (List RouteInclude)
@@ -155,3 +155,18 @@ jsonApiDecoder : Decoder JsonApi
 jsonApiDecoder =
     decode JsonApi
         |> required "version" string
+
+
+dateDecoder : Decoder Date
+dateDecoder =
+    let
+        convert : String -> Decoder Date
+        convert raw =
+            case Date.fromString raw of
+                Ok date ->
+                    succeed date
+
+                Err error ->
+                    fail error
+    in
+        string |> andThen convert
