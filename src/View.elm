@@ -42,11 +42,11 @@ sortByDate direction elem1 elem2 =
             if direction == 0 then
                 elem1.attributes.departureTime
             else
-                elem1.attributes.departureTime
+                elem1.attributes.arrivalTime
 
         b =
             if direction == 0 then
-                elem2.attributes.arrivalTime
+                elem2.attributes.departureTime
             else
                 elem1.attributes.arrivalTime
     in
@@ -86,8 +86,7 @@ displayPrediction prediction direction =
                         (Date.hour t |> toString) ++ ":" ++ minute
     in
         tr []
-            [ td [] [ text prediction.id ]
-            , td [] [ text prediction.relationships.route.data.id ]
+            [ td [] [ text prediction.relationships.route.data.id ]
             , td [] [ text (Maybe.withDefault "-" prediction.attributes.status) ]
             , td [] [ text (Maybe.withDefault "-" prediction.attributes.track) ]
             , td [] [ text timeFormatted ]
@@ -97,11 +96,10 @@ displayPrediction prediction direction =
 tableHeader : Html Msg
 tableHeader =
     thead []
-        [ td [] [ text "Prediction" ]
-        , td [] [ text "Route" ]
-        , td [] [ text "Status" ]
-        , td [] [ text "Track" ]
-        , td [] [ text "Time" ]
+        [ th [] [ text "Route" ]
+        , th [] [ text "Status" ]
+        , th [] [ text "Track" ]
+        , th [] [ text "Time" ]
         ]
 
 
