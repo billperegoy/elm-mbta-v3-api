@@ -12,7 +12,19 @@ import Routes exposing (..)
 
 url : String
 url =
-    "https://api-v3.mbta.com/predictions?filter[stop]=place-sstat&sort=departure_time&include=route"
+    let
+        filter =
+            "filter[stop]=place-sstat"
+
+        sort =
+            "sort=departure_time"
+
+        include =
+            "include=route"
+    in
+        "https://api-v3.mbta.com/predictions"
+            ++ "?"
+            ++ String.join "&" [ filter, sort, include ]
 
 
 get : Cmd Msg
