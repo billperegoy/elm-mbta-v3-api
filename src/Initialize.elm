@@ -1,7 +1,7 @@
 module Initialize exposing (init)
 
 import Model exposing (..)
-import Update
+import Predictions.Http
 
 
 init : ( Model, Cmd Msg )
@@ -13,4 +13,4 @@ init =
         , included = []
         }
     }
-        ! [ Update.get ]
+        ! [ Predictions.Http.get ]

@@ -3,6 +3,7 @@ module View exposing (view)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Model exposing (..)
+import Predictions exposing (..)
 import Date
 
 
