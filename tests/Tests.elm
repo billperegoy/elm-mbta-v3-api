@@ -3,16 +3,12 @@ module Tests exposing (..)
 import Test exposing (..)
 import Expect
 import String
-import Utils
 
 
 all : Test
 all =
     describe "A Test Suite"
-        [ test "Capitalizes a lower case word" <|
+        [ test "Hello world" <|
             \() ->
-                Expect.equal (Utils.capitalize "john") "John"
-        , test "Does not change an already capitalized word" <|
-            \() ->
-                Expect.equal (Utils.capitalize "John") "John"
+                Expect.equal 1 1
         ]
